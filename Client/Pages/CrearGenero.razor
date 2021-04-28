@@ -1,0 +1,39 @@
+﻿@page "/CrearGeneros"
+@*@using System.ComponentModel.DataAnnotations*@
+@inject IRepositorio repositorio
+
+
+<div style="max-width: 500px">
+
+  <MudCard>
+    <MudCardHeader>
+      <CardHeaderContent>
+        <MudText Typo="Typo.h6">Carga de Generos</MudText>
+      </CardHeaderContent>
+    </MudCardHeader>
+    <MudCardContent>
+      <MudTextField Label="Nombre" HelperText="NOomde la pelicula"
+                    @bind-Value="genero.Nombre" For="@(()=>genero.Nombre)" />
+    </MudCardContent>
+
+    <MudCardActions>
+
+      <MudButton Variant="Variant.Filled" OnClick="@crear">Crear</MudButton>
+      @*<MudButton ButtonType="ButtonType.Submit"
+        Variant="Variant.Filled"
+        Color="Color.Primary"
+        Class="ml-auto ">Register</MudButton>*@
+
+    </MudCardActions>
+  </MudCard>
+
+</div>
+
+@code {
+  Genero genero = new Genero();
+
+  private async Task crear()
+  {
+    var httpResponse = await repositorio.Post("api/generos", genero);
+  }
+}
